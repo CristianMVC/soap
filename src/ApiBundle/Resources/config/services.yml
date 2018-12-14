@@ -1,0 +1,13 @@
+services:
+#    api.example:
+#        class: ApiBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+
+    check_service:
+         class: ApiBundle\Services\CheckService
+         
+         
+    generar_usuario:
+        class: ApiBundle\Services\GenerarUsuario   
+        arguments: [ "@doctrine.orm.entity_manager" ]

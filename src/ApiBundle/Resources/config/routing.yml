@@ -1,0 +1,8 @@
+api_homepage:
+    path:     /
+    defaults: { _controller: ApiBundle:Default:index }
+    
+acme_api_soap_check:
+    path: /soap/check
+    defaults: { _controller: ApiBundle:Default:check }    
+

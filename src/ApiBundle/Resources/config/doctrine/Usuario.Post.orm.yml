@@ -1,0 +1,22 @@
+ApiBundle\Entity\Usuario\Post:
+    type: entity
+    table: usuario
+    repositoryClass: ApiBundle\Repository\Usuario\PostRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 255
+        pass:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+            unique: true
+    lifecycleCallbacks: {  }
