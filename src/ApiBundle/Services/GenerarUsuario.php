@@ -23,12 +23,23 @@ public function __construct(EntityManager $entityManager)
 public function generarUsuario($nombre,$mail,$pass)
 {
   
+  
+   $resultado = $this->validarDatos($mail,$pass);
+   
+   if($resultado == 1)
+     {
+        return "Password mal definido";
+     }
+    if($resultado == 2)
+     {
+        return "Email mal definido";
+     }
+     
     $usuario = new Post();
     $usuario->setNombre($nombre);
-    $usuario->setPass($pass);
+    $usuario->setPass($resultado);
     $usuario->setEmail($mail);
-   
-    if($error = $this->validarDatos($mail,$pass)){
+       
    try{ 
     
     $this->em->persist($usuario);
@@ -41,12 +52,52 @@ public function generarUsuario($nombre,$mail,$pass)
     
     
     return "Ok";
-    }else
-    {
-        return $error;
-        
-    }
+    
 }    
+      
+   
+  /**
+     * @return array
+     */    
+   public function getUsuarios()
+   {
+    
+    try{
+        $values = $this->em->getRepository('ApiBundle:Usuario\Post')->findAll();
+       }catch(Exception $e)
+       {
+         return $e->getMessage();
+       } 
+      
+      return $values;
+          
+   }
+   
+   
+   /**
+     * Check soap service, display name when called
+     * @param string $id
+     * @return mixed
+     */    
+   public function deleteUser($id)
+   {
+    
+    try{
+         $value = $this->em->getRepository('ApiBundle:Usuario\Post')->find($id);
+         $this->em->remove($value);
+         $this->em->flush();
+         
+       }catch(Exception $e)
+       {
+        
+        return $e->getMessage();
+       }
+    
+     return "Usuario removido";
+    
+   }
+   
+   
     
      
    private function validarDatos($mail,$pass)
@@ -58,15 +109,15 @@ public function generarUsuario($nombre,$mail,$pass)
           return md5($pass);
         }else
         {
-            return "Password invalido";
+            return 1;
         } 
          
       }else
       {
-        return "Email invalido";
+        return 2;
         
       }
-     return true;
+    
     
     
    }  

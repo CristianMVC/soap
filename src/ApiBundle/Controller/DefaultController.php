@@ -21,7 +21,9 @@ class DefaultController extends Controller
     {
         
         $funcion = $this->get('GenerarUsuario');
-        $funcion->generarUsuario("palito ortega","aaaaaaa","aaaaaaaa");
+      //  $funcion->generarUsuario("palito ortega","aaaaaaa","aaaaaaaa");
+        $funcion->getUsuarios();
+        
         
         return $this->render('ApiBundle:Default:index.html.twig');
     }
